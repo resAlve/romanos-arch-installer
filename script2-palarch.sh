@@ -9,7 +9,7 @@ mount /dev/sda2 /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 echo "DESCARGA DEL SISTEMA OPERATIVO..."
-pacstrap /mnt base base-devel git wget curl linux linux-firmware grub os-prober efibootmgr networkmanager dhcpcd netctl wpa_supplicant dialog firefox libreoffice-fresh libreoffice-fresh-es hunspell-es_any hunspell-es_mx gnome wayland
+pacstrap /mnt base base-devel git wget curl linux linux-firmware grub os-prober efibootmgr networkmanager dhcpcd netctl wpa_supplicant dialog
 echo "GENERAR FSTAB"
 genfstab /mnt
 genfstab /mnt >> /mnt/etc/fstab
