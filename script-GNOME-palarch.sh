@@ -1,5 +1,4 @@
-
-echo "0.2 ALPHA"
+echo "0.4"
 echo "Instalacion en SDA"
 cfdisk /dev/sda
 mkfs.ext4 /dev/sda2
@@ -13,7 +12,28 @@ pacstrap /mnt base base-devel git wget curl linux linux-firmware grub os-prober 
 echo "GENERAR FSTAB"
 genfstab /mnt
 genfstab /mnt >> /mnt/etc/fstab
-echo "ENTRAR EN CHROOT"
-cp /romanos-arch-installer/chrootinstaller.sh /mnt/
-chmod +x /mnt/chrootinstaller.sh
-arch-chroot /mnt /chrootinstaller.sh
+cat > /mnt/chroot.txt << EOF
+echo "CONFIGURACION RAPIDA"
+ln -sf /usr/share/zoneinfo/Mexico/General /etc/localtime
+hwclock -w
+echo "huevos" > /etc/hostname
+echo "GENERAR LOCALES"
+echo "es_MX.UTF-8 UTF-8" >> /etc/locale.gen
+locale-gen
+echo "NUEVA CONTRASEÑA PARA EL ADMINISTRADOR DEL EQUIPO"
+passwd
+echo "INSTALANDO EL GESTOR DE ARRANQUE, NO LE MUEVA CABRON"
+grub-install --target=x86_64-efi --efi-directory=/boot
+grub-install --target=x86_64-efi --efi-directory=/boot --removable
+grub-mkconfig -o /boot/grub/grub.cfg
+mkinitcpio -P
+echo "ACTIVAR SERVICIOS ESCENCIALES"
+systemctl enable NetworkManager
+systemctl enable bluetooth
+systemctl enable gdm
+EOF
+chmod +x /mnt/chroot.txt
+arch-chroot /mnt /chroot.txt
+rm -rf /mnt/chroot.txt romanos-arch-installer
+echo "TERMINADO, EJECUTA reboot -n PARA REINICIAR o poweroff -n PARA APAGAR"
+exit
