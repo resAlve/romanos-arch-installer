@@ -1,4 +1,4 @@
-echo "0.2 ALPHA"
+echo "0.4"
 echo "Instalacion en SDA"
 cfdisk /dev/sda
 mkfs.ext4 /dev/sda2
@@ -12,7 +12,6 @@ pacstrap /mnt base base-devel git wget curl linux linux-firmware grub os-prober 
 echo "GENERAR FSTAB"
 genfstab /mnt
 genfstab /mnt >> /mnt/etc/fstab
-echo "ENTRAR EN CHROOT"
 cat > /mnt/chroot.txt << EOF
 echo "CONFIGURACION RAPIDA"
 ln -sf /usr/share/zoneinfo/Mexico/General /etc/localtime
@@ -30,12 +29,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 mkinitcpio -P
 echo "ACTIVAR SERVICIOS ESCENCIALES"
 systemctl enable NetworkManager
-systemctl enable bluetooth
-systemctl enable gdm
-echo "TERMINADO, ADIOS :-)"
 EOF
 chmod +x /mnt/chroot.txt
 arch-chroot /mnt /chroot.txt
 rm -rf /mnt/chroot.txt romanos-arch-installer
-echo "Ejecuta reboot -n para reiniciar o poweroff -n para apagar"
+echo "TERMINADO, EJECUTA reboot -n PARA REINICIAR o poweroff -n PARA APAGAR"
 exit
