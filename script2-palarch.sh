@@ -14,4 +14,5 @@ echo "GENERAR FSTAB"
 genfstab /mnt
 genfstab /mnt >> /mnt/etc/fstab
 echo "ENTRAR EN CHROOT"
+cp chrootinstaller.sh /mnt/
 arch-chroot /mnt /romanos-arch-installer/chrootinstaller.sh
