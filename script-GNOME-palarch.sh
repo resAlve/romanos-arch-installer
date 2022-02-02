@@ -1,4 +1,4 @@
-echo "0.5"
+echo "0.6"
 echo ""
 echo "Discos encontrados"
 lsblk | grep "disk"
@@ -8,13 +8,13 @@ echo ""
 echo "Creando particiones y volumenes en /dev/$disco ..."
 echo ""
 echo "YES" | parted /dev/$disco mklabel gpt
-parted -a optimal /dev/$disco mkpart primary ext4 261MiB 100%
 parted -a optimal /dev/$disco mkpart primary fat32 1MiB 261MiB
-parted set 1 esp on
+parted set 1 esp on /dev/$disco[1]
+parted -a optimal /dev/$disco mkpart primary ext4 100%
 echo "MONTAJE DE PARTICIONES"
-mount /dev/sda2 /mnt
+mount /dev/$disco[2] /mnt
 mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+mount /dev/$disco[1] /mnt/boot
 echo "DESCARGA DEL SISTEMA OPERATIVO..."
 pacstrap /mnt base base-devel git wget curl linux linux-firmware grub os-prober efibootmgr networkmanager dhcpcd netctl wpa_supplicant dialog firefox libreoffice-fresh libreoffice-fresh-es hunspell-es_any hunspell-es_mx gnome wayland
 echo "GENERAR FSTAB"
