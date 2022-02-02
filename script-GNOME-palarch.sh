@@ -8,9 +8,9 @@ echo ""
 echo "Creando particiones y volumenes en /dev/$disco ..."
 echo ""
 echo "YES" | parted /dev/$disco mklabel gpt
-parted -a optimal /dev/$disco mkpart primary fat32 1MiB 261MiB
-parted set /dev/$disco[1] esp on
-parted -a optimal /dev/$disco mkpart primary ext4 100%
+parted -a optimal /dev/$disco mkpart primary 1 fat32 1MiB 261MiB
+parted set 1 esp on
+parted -a optimal /dev/$disco mkpart primary 2 ext4 100%
 echo "MONTAJE DE PARTICIONES"
 mount /dev/$disco[2] /mnt
 mkdir /mnt/boot
