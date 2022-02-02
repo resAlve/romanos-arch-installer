@@ -1,8 +1,16 @@
-echo "0.4"
-echo "Instalacion en SDA"
-cfdisk /dev/sda
-mkfs.ext4 /dev/sda2
-mkfs.fat -F 32 /dev/sda1
+echo "0.5"
+echo ""
+echo "Discos encontrados"
+lsblk | grep "disk"
+echo "Selecciona tu disco duro"
+read disco
+echo ""
+echo "Creando particiones y volumenes en /dev/$disco ..."
+echo ""
+echo "YES" | parted /dev/$disco mklabel gpt
+parted -a optimal /dev/$disco mkpart primary ext4 261MiB 100%
+parted -a optimal /dev/$disco mkpart primary fat32 1MiB 261MiB
+parted set 1 esp on
 echo "MONTAJE DE PARTICIONES"
 mount /dev/sda2 /mnt
 mkdir /mnt/boot
