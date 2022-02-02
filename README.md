@@ -1,9 +1,9 @@
 # romanos installer
 
-Instalador de archlinux en modo cavernícola :-)
+Instalador de archlinux EFI
 
 Comando directo:
 
-pacman -Syu git && git clone https://github.com/resAlve/romanos-arch-installer.git && cd romanos-arch-installer && bash script-palarch.sh
+pacman -Sy && pacman -S git && git clone https://github.com/resAlve/romanos-arch-installer.git && cd romanos-arch-installer && bash script-palarch.sh
 
-Basado en el script de LastDragon MX
+Basado en el script de LastDragon MX.
