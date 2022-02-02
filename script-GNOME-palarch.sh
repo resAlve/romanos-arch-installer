@@ -1,4 +1,4 @@
-echo "0.6"
+echo "0.6.1"
 echo ""
 echo "Discos encontrados"
 lsblk | grep "disk"
@@ -30,7 +30,7 @@ echo "es_MX.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "NUEVA CONTRASEÑA PARA EL ADMINISTRADOR DEL EQUIPO"
 passwd
-echo "INSTALANDO EL GESTOR DE ARRANQUE, NO LE MUEVA CABRON"
+echo "INSTALANDO EL GESTOR DE ARRANQUE"
 grub-install --target=x86_64-efi --efi-directory=/boot
 grub-install --target=x86_64-efi --efi-directory=/boot --removable
 grub-mkconfig -o /boot/grub/grub.cfg
